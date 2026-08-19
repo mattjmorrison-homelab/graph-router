@@ -1,0 +1,30 @@
+when:
+  event: [push, manual]
+
+# No build-test/test split like the app repos: there's no test suite to run
+# against a "-test" tagged image here, so building the exact same thing
+# twice under two names would just be wasted registry storage — the
+# release build itself (rover compose failing = build failing) is the
+# validation. Only builds on main since every push here produces a
+# deployable image tag, and Image Updater deploys whatever's newest.
+steps:
+  build-release:
+    image: docker.io/woodpeckerci/plugin-kaniko:latest@sha256:01e0e325efd8fd2b1a95d207e84780a85ed7f8eb9712d8e79888e0f42ff8b7b3
+    settings:
+      repo: graph-router
+      registry: registry.morrisons.site
+      dockerfile: Dockerfile
+      target: release
+      tags: ${CI_COMMIT_SHA}
+      username: ci
+      password:
+        from_secret: zot_password
+    when:
+      branch: main
+
+  verify-deploy:
+    image: alpine@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+    commands:
+      - sh scripts/verify-deploy.sh
+    when:
+      branch: main

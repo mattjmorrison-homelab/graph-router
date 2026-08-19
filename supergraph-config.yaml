@@ -1,0 +1,6 @@
+federation_version: =2.15.1
+subgraphs:
+  hdmi-switch:
+    routing_url: https://graph-hdmi-switch.morrisons.site/graphql
+    schema:
+      subgraph_url: https://graph-hdmi-switch.morrisons.site/graphql
