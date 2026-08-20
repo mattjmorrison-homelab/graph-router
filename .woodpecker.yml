@@ -5,8 +5,16 @@ when:
 # against a "-test" tagged image here, so building the exact same thing
 # twice under two names would just be wasted registry storage — the
 # release build itself (rover compose failing = build failing) is the
-# validation. Only builds on main since every push here produces a
-# deployable image tag, and Image Updater deploys whatever's newest.
+# validation. Only builds on main.
+#
+# Tagged "latest" (not ${CI_COMMIT_SHA}) deliberately: this image's content
+# depends on the backend's live schema at build time, not just this repo's
+# own commit, so rebuilding the same commit can still produce different
+# content that needs to redeploy. A commit-sha tag would make two builds of
+# the same commit collide on one tag, which Image Updater's "latest"
+# (newest-tag) strategy can't detect as a change — it already bit us once.
+# Image Updater tracks this tag with "digest" strategy instead, which does
+# detect a content change under a reused tag.
 steps:
   build-release:
     image: docker.io/woodpeckerci/plugin-kaniko:latest@sha256:01e0e325efd8fd2b1a95d207e84780a85ed7f8eb9712d8e79888e0f42ff8b7b3
@@ -15,7 +23,7 @@ steps:
       registry: registry.morrisons.site
       dockerfile: Dockerfile
       target: release
-      tags: ${CI_COMMIT_SHA}
+      tags: latest
       username: ci
       password:
         from_secret: zot_password
