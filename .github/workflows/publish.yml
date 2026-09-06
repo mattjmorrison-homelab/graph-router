@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: k8s-amd64
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: mattjmorrison-homelab/actions-k8s@88c223dd54ae9c3a7212477861f39914f8151aeb # main
+        with:
+          service-account: graph-router-job
+          image: gcr.io/kaniko-project/executor@sha256:4e7a52dd1f14872430652bb3b027405b8dfd17c4538751c620ac005741ef9698
+          shell: "false"
+          command: >-
+            --context=git://github.com/mattjmorrison-homelab/graph-router.git#refs/heads/main
+            --dockerfile=Dockerfile --target=release --destination=registry.morrisons.site/graph-router:latest
+          secret-volume: zot-pull-secret:/kaniko/.docker
+      - run: sh scripts/verify-deploy.sh

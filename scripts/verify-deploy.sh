@@ -1,8 +1,6 @@
 #!/bin/sh
 set -eu
 
-apk add --no-cache curl >/dev/null
-
 URL="https://graphql.morrisons.site/"
 
 # Apollo Router has no equivalent of the /version endpoint the Python/Node
