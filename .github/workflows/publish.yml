@@ -16,7 +16,7 @@ jobs:
           image: gcr.io/kaniko-project/executor@sha256:4e7a52dd1f14872430652bb3b027405b8dfd17c4538751c620ac005741ef9698
           shell: "false"
           command: >-
-            /kaniko/executor --context=git://github.com/mattjmorrison-homelab/graph-router.git#refs/heads/main
+            --context=git://github.com/mattjmorrison-homelab/graph-router.git#refs/heads/main
             --dockerfile=Dockerfile --target=release --destination=registry.morrisons.site/graph-router:latest
           secret-volume: zot-pull-secret:/kaniko/.docker
       - run: sh scripts/verify-deploy.sh
