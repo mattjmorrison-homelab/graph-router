@@ -17,5 +17,5 @@ jobs:
           command: >-
             --context=git://github.com/mattjmorrison-homelab/graph-router.git#refs/heads/main
             --dockerfile=Dockerfile --target=release --destination=registry.morrisons.site/graph-router:latest
-          secret-volume: zot-pull-secret:/kaniko/.docker
+          secret-volume: graph-router-zot-pull-secret:/kaniko/.docker
       - run: sh scripts/verify-deploy.sh
