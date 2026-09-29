@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: graph-router
+  annotations:
+    github.com/project-slug: mattjmorrison-homelab/graph-router
+spec:
+  type: service
+  owner: mattjmorrison-homelab
+  lifecycle: experimental
+  system: api
