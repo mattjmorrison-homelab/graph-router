@@ -4,3 +4,7 @@ subgraphs:
     routing_url: https://graph-hdmi-switch.morrisons.site/graphql
     schema:
       subgraph_url: https://graph-hdmi-switch.morrisons.site/graphql
+  ad-reporter:
+    routing_url: https://graph-ad-reporter.morrisons.site/graphql
+    schema:
+      subgraph_url: https://graph-ad-reporter.morrisons.site/graphql

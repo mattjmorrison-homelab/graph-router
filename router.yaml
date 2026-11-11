@@ -7,6 +7,7 @@ cors:
   policies:
     - origins:
         - https://hdmi-switch.morrisons.site
+        - https://ad-reporter.morrisons.site
       methods:
         - GET
         - POST
