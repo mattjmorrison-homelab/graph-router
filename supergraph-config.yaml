@@ -8,3 +8,7 @@ subgraphs:
     routing_url: https://graph-ad-reporter.morrisons.site/graphql
     schema:
       subgraph_url: https://graph-ad-reporter.morrisons.site/graphql
+  claude:
+    routing_url: https://graph-claude.morrisons.site/graphql
+    schema:
+      subgraph_url: https://graph-claude.morrisons.site/graphql
